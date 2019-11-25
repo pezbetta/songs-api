@@ -6,6 +6,16 @@ class Artist(models.Model):
     name = models.CharField(max_length=120)
 
 
+class ArtistImage(models.Model):
+    image_id = models.IntegerField(primary_key=True, auto_created=True)
+    artist_id = models.ForeignKey(
+        'Artist',
+        on_delete=models.CASCADE,
+        related_name='images'
+    )
+    image = models.ImageField()
+
+
 class Album(models.Model):
     album_id = models.IntegerField(primary_key=True, auto_created=True)
     title = models.CharField(max_length=160)
