@@ -1,6 +1,5 @@
 from .models import Artist, Gender, Album, Track
 from rest_framework import serializers
-from rest_framework.fields import CharField
 
 
 class ArtistSerializer(serializers.HyperlinkedModelSerializer):
@@ -38,8 +37,9 @@ class AlbumSongsSerializer(serializers.HyperlinkedModelSerializer):
 class AlbumsFullInformationSerializer(serializers.HyperlinkedModelSerializer):
     tracks = TrackSerializer(many=True, read_only=True)
     artist = ArtistSerializer(source='artist_id', read_only=True)
-    artist_name = serializers.CharField(source='artist_id.name', read_only=True)
+    longest_track = TrackSerializer(many=False, read_only=True)
+    shortest_track = TrackSerializer(many=False, read_only=True)
 
     class Meta:
         model = Album
-        fields = ['album_id', 'title', 'tracks', 'artist', 'artist_name']
+        fields = ['album_id', 'title', 'tracks', 'artist', 'total_length', 'longest_track', 'shortest_track']

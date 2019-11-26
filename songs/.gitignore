@@ -103,4 +103,5 @@ ENV/
 # app secrets
 secrets/secret*
 
+../.idea/
 db/

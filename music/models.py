@@ -25,6 +25,23 @@ class Album(models.Model):
         related_name='albums'
     )
 
+    @property
+    def number_of_tracks(self):
+        return len(Track.objects.filter(album_id_id=self.pk))
+
+    @property
+    def total_length(self):
+        tracks = Track.objects.filter(album_id_id=self.pk)
+        return sum([track.milliseconds for track in tracks])
+
+    @property
+    def longest_track(self):
+        return Track.objects.filter(album_id_id=self.pk).order_by('-milliseconds')[0]
+
+    @property
+    def shortest_track(self):
+        return Track.objects.filter(album_id_id=self.pk).order_by('milliseconds')[0]
+
 
 class Gender(models.Model):
     gender_id = models.IntegerField(primary_key=True, auto_created=True)

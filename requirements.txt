@@ -1,4 +1,4 @@
-django
-djangorestframework
-markdown       # Markdown support for the browsable API.
-django-filter  # Filtering support
+django==2.2.7
+djangorestframework==3.10.3
+markdown
+django-filter
