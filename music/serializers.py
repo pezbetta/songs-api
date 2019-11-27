@@ -17,13 +17,22 @@ class GenderSerializer(serializers.HyperlinkedModelSerializer):
 class AlbumSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Album
-        fields = ['album_id', 'title', 'artist_id_id']
+        fields = ['album_id', 'title']
+
+
+class ArtistAlbumsSerializer(serializers.HyperlinkedModelSerializer):
+    albums = AlbumSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Artist
+
+        fields = ['artist_id', 'name', 'albums']
 
 
 class TrackSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Track
-        fields = ['track_id', 'name', 'album_id_id', 'gender_id_id', 'milliseconds']
+        fields = ['track_id', 'name', 'milliseconds']
 
 
 class AlbumSongsSerializer(serializers.HyperlinkedModelSerializer):
@@ -42,4 +51,4 @@ class AlbumsFullInformationSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Album
-        fields = ['album_id', 'title', 'tracks', 'artist', 'total_length', 'longest_track', 'shortest_track']
+        fields = ['album_id', 'title', 'number_of_tracks', 'tracks', 'artist', 'total_length', 'longest_track', 'shortest_track']

@@ -1,12 +1,11 @@
 from .models import Artist, Gender, Album, Track
 from rest_framework import viewsets
-from .serializers import ArtistSerializer, GenderSerializer, AlbumSerializer, AlbumSongsSerializer, AlbumsFullInformationSerializer
+from .serializers import ArtistSerializer, ArtistAlbumsSerializer, AlbumSerializer, AlbumSongsSerializer, AlbumsFullInformationSerializer
 from rest_framework import status
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.response import Response
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.pagination import PageNumberPagination
 
 
 @api_view(['GET'])
@@ -20,18 +19,10 @@ def list_artist(request):
 @authentication_classes([BasicAuthentication])
 @permission_classes([IsAuthenticated])
 def artist_detail(request, artist_id):
-    try:
-        artist = Artist.objects.get(artist_id=artist_id)
-    except Artist.DoesNotExist:
-        return Response('Artist not found', status=status.HTTP_404_NOT_FOUND)
-    albums = Album.objects.filter(artist_id_id=artist_id)
-    artist_serialized = ArtistSerializer(artist, many=False)
-    album_serialized = AlbumSerializer(albums, many=True)
+    artist = Artist.objects.get(artist_id=artist_id)
+    artist_albums = ArtistAlbumsSerializer(artist, many=False)
     return Response(
-        {
-            "artist": artist_serialized.data,
-            "albums": album_serialized.data
-        },
+        artist_albums.data,
         status.HTTP_200_OK
     )
 
