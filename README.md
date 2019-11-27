@@ -1,6 +1,8 @@
-#Songs-api
+# Songs-api
 This project has been made with Django, Django-restframework and Docker. 
 It allows client to get information about artists and albums.  
+
+**This setup is intended for showcasing and development, you should not use similar configuration on a production enviroment.**
 
 #### TODOs
 - <s>Dockerize Django app</s>
@@ -47,8 +49,13 @@ http get -a user:password http://localhost:8000/music/artist/1
 
 ### DB
 This repo include DB with data fetched from [here](https://www.sqlitetutorial.net/sqlite-sample-database/).
-This way DB is already populated with artists, albums and tracks.  
+This way DB is already populated with artists, albums and tracks.
 
+### Test
+We can run test by using:
+```shell script
+docker-compose run --rm web ./manage.py test
+```
 
 ## API endpoints docs
 
