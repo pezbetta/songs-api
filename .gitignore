@@ -130,3 +130,6 @@ dmypy.json
 
 # Pycharm IDE folder
 .idea/
+
+# Images download by scraping
+images/

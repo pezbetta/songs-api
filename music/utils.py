@@ -1,6 +1,6 @@
 import requests
 from urllib.parse import quote
-from urllib.request import urlretrieve
+from urllib import request
 from os import path, makedirs
 
 
@@ -34,16 +34,14 @@ class ArtistPicture:
                 return
 
     @staticmethod
-    def _create_image_localpath():
+    def _create_images_localpath():
         if not path.exists(LOCALPATH):
             makedirs(LOCALPATH)
 
-    def download_image(self, artist_name):
-        self._create_image_localpath()
+    def download(self, artist_name, image_url):
+        self._create_images_localpath()
         encoded_artist_name = self._encoded_name(artist_name)
         local_path = path.join(LOCALPATH, '{}.jpg'.format(encoded_artist_name))
-        image_url = self.recover(artist_name).get('image_urls')[0]
-        print(image_url)
-        urlretrieve(image_url, local_path)
+        print(request.urlretrieve)
+        request.urlretrieve(image_url, local_path)
         return path.abspath(local_path)
-

@@ -1,6 +1,11 @@
+import logging
+
 from django.db import models
 
 from music.utils import ArtistPicture
+
+
+logger = logging.getLogger('song-api.music.models')
 
 
 class Artist(models.Model):
@@ -16,13 +21,25 @@ class ArtistImage(models.Model):
         related_name='images'
     )
     url = models.CharField(max_length=500)
-    local_path = models.CharField(max_length=500)
+    local_image = models.ImageField(upload_to='./')
 
     def lookup_image_url(self):
         try:
             self.url = ArtistPicture().recover(self.artist.name).get('image_urls')[0]
-        except IndexError:
+        except (IndexError, AttributeError):
             return
+
+    def download_image(self):
+        self.local_image = ArtistPicture().download(self.artist.name, self.url)
+        return self.local_image
+
+    def fetch_image(self):
+        self.lookup_image_url()
+        if self.url:
+            return self.download_image()
+        else:
+            logger.warning('Image not found for {}'.format(self.artist.artist_id))
+            return False
 
 
 class Album(models.Model):

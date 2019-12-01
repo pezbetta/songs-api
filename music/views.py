@@ -1,6 +1,5 @@
-from .models import Artist, Gender, Album, Track
-from rest_framework import viewsets
-from .serializers import ArtistSerializer, ArtistAlbumsSerializer, AlbumSerializer, AlbumSongsSerializer, AlbumsFullInformationSerializer
+from .models import Artist, ArtistImage, Album, Track
+from .serializers import ArtistSerializer, ArtistAlbumsSerializer, AlbumSongsSerializer, AlbumsFullInformationSerializer
 from rest_framework import status
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.response import Response

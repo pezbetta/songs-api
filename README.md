@@ -2,14 +2,20 @@
 This project has been made with Django, Django-restframework and Docker. 
 It allows client to get information about artists and albums.  
 
+Using a separated container which runs a scrapy process as an API, Django app can recover artist pictures 
+from Internet. The pictures are download and path to pictures are added to Django app DB.
+
 **This setup is intended for showcasing and development, you should not use similar configuration on a production enviroment.**
 
 #### TODOs
 - <s>Dockerize Django app</s>
-- Include some test on music endpoint 
+- Include more test for music app 
 - Pagination on listing endpoints 
 - Accept other input than RAW body on passphrases endpoints
 - Recover artist pictures from AllSongs.com
+  - <s>Get pictures based on artist name</s>
+  - <s>Command to ask django to download pictures and populate DB with artist pictures</s>
+  - <s>Add pictures to artist endpoint</s>
 
 ### Requirements
 In order to run this project it is recommend to use Docker and Docker Compose
@@ -49,6 +55,24 @@ http get -a user:password http://localhost:8000/music/artist/1
 ### DB
 This repo include DB with data fetched from [here](https://www.sqlitetutorial.net/sqlite-sample-database/).
 This way DB is already populated with artists, albums and tracks.
+
+#### How to populate DB with artist pictures
+There is a django command to download pictures for all artist from DB:
+```shell script
+docker-compose run --rm web ./manage.py fetchartistimages --all
+> Successfully fetch image for artist 1 > /app/images/AC%20DC.jpg
+> Successfully fetch image for artist 2 > /app/images/Accept.jpg
+> Successfully fetch image for artist 3 > /app/images/Aerosmith.jpg
+> Successfully fetch image for artist 4 > /app/images/Alanis%20Morissette.jpg
+> Successfully fetch image for artist 5 > /app/images/Alice%20In%20Chains.jpg
+[...]
+```
+
+In case we just want to search the pictures for some artist:
+```shell script
+docker-compose run --rm web ./manage.py fetchartistimages 100
+> Successfully fetch image for artist 100 > /app/images/Lenny%20Kravitz.jpg
+```
 
 ### Test
 We can run test by using:

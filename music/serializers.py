@@ -1,11 +1,20 @@
-from .models import Artist, Gender, Album, Track
+from .models import Artist, ArtistImage, Gender, Album, Track
 from rest_framework import serializers
 
 
+class ArtistImageSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = ArtistImage
+        fields = ['url', 'local_image']
+
+
 class ArtistSerializer(serializers.HyperlinkedModelSerializer):
+    images = ArtistImageSerializer(many=True, read_only=True)
+    serializers.URLField(max_length=200, min_length=None, allow_blank=False)
+
     class Meta:
         model = Artist
-        fields = ['artist_id', 'name']
+        fields = ['artist_id', 'name', 'images']
 
 
 class GenderSerializer(serializers.HyperlinkedModelSerializer):
@@ -25,7 +34,6 @@ class ArtistAlbumsSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Artist
-
         fields = ['artist_id', 'name', 'albums']
 
 
