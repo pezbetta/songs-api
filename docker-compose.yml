@@ -1,11 +1,15 @@
 version: "2"
 
 services:
-    scrapyd:
-        image: ceroic/scrapyd
-        restart: always
+    scrapyrt:
+        image: vimagick/scrapyd
+        command: scrapyrt -i 0.0.0.0 -p 9080
         ports:
-            - '6800:6800'
+            - "9080:9080"
+        volumes:
+            - ./scraper:/code
+        working_dir: /code
+        restart: always
     web:
         build: .
         tty: true

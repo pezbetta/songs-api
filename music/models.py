@@ -1,5 +1,7 @@
 from django.db import models
 
+from music.utils import ArtistPicture
+
 
 class Artist(models.Model):
     artist_id = models.IntegerField(primary_key=True, auto_created=True)
@@ -8,12 +10,19 @@ class Artist(models.Model):
 
 class ArtistImage(models.Model):
     image_id = models.IntegerField(primary_key=True, auto_created=True)
-    artist_id = models.ForeignKey(
+    artist = models.ForeignKey(
         'Artist',
         on_delete=models.CASCADE,
         related_name='images'
     )
-    image = models.ImageField()
+    url = models.CharField(max_length=500)
+    local_path = models.CharField(max_length=500)
+
+    def lookup_image_url(self):
+        try:
+            self.url = ArtistPicture().recover(self.artist.name).get('image_urls')[0]
+        except IndexError:
+            return
 
 
 class Album(models.Model):

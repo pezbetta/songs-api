@@ -7,7 +7,6 @@ It allows client to get information about artists and albums.
 #### TODOs
 - <s>Dockerize Django app</s>
 - Include some test on music endpoint 
-- Use PostgreSql with docker compose?
 - Pagination on listing endpoints 
 - Accept other input than RAW body on passphrases endpoints
 - Recover artist pictures from AllSongs.com
