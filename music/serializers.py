@@ -1,5 +1,6 @@
-from .models import Artist, ArtistImage, Gender, Album, Track
 from rest_framework import serializers
+
+from .models import Artist, ArtistImage, Gender, Album, Track
 
 
 class ArtistImageSerializer(serializers.HyperlinkedModelSerializer):

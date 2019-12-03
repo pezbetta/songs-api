@@ -4,7 +4,6 @@ from django.db import models
 
 from music.utils import ArtistPicture
 
-
 logger = logging.getLogger('song-api.music.models')
 
 

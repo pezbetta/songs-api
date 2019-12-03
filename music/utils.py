@@ -1,8 +1,8 @@
-import requests
-from urllib.parse import quote
-from urllib import request
 from os import path, makedirs
+from urllib import request
+from urllib.parse import quote
 
+import requests
 
 SCRAPYRT_URL = 'http://scrapyrt:9080/'
 LOCALPATH = './images/'

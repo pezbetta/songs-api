@@ -1,7 +1,8 @@
-from django.test import TestCase
-from django.conf import settings
-from unittest import mock
 import os
+from unittest import mock
+
+from django.conf import settings
+from django.test import TestCase
 
 from music.utils import ArtistPicture
 
