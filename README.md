@@ -9,13 +9,14 @@ from Internet. The pictures are download and path to pictures are added to Djang
 
 #### TODOs
 - <s>Dockerize Django app</s>
-- Include more test for music app 
-- Pagination on listing endpoints 
-- Accept other input than RAW body on passphrases endpoints
+- Include more test for music app
+- Pagination on listing endpoints
 - Recover artist pictures from AllSongs.com
   - <s>Get pictures based on artist name</s>
   - <s>Command to ask django to download pictures and populate DB with artist pictures</s>
   - <s>Add pictures to artist endpoint</s>
+  - Check artists results albums againt artist's albums in DB
+  - Install async tasks system in order to run this task in background
 
 ### Requirements
 In order to run this project it is recommend to use Docker and Docker Compose
@@ -100,3 +101,11 @@ The next endpoints required some RAW body to be send with the POST request
 
 - POST passphrase/basic: return number of passphrases that not contains duplicated words.
 - POST passphrase/advance: return number of passphrases that not contains anagrams.
+
+```shell script
+cat | http POST http://localhost:8000/passphrase/basic Content-Type:text/plain
+> bar foo
+> bar foo fooo
+> foo foo ko
+> joo ojo 
+```

@@ -28,6 +28,8 @@ def _is_valid_passphrase(passphrase, checks_anagrams=False):
     :return: True is String does no contains duplicates or anagrams if required.
     """
     words = passphrase.lower().split()
+    if len(words) < 1:
+        return False
     if checks_anagrams and _has_anagrams(words):
         return False
     if _has_duplicates(words):
